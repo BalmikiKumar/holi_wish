@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi Card</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(180deg, #FF9933 33%, white 33%, white 66%, #138808 66%);
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .form-container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(red, yellow, green);
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(135deg, #ff0000, #ff7300, #ffeb00, #33cc33, #0099ff, #6633cc, #ff1493);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .card h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .card p {
+            color: white;
+            font-size: 18px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-bottom: 10px;
+        }
+        .marquee {
+            position: absolute;
+            bottom: 16px;
+            width: 100%;
+            color: white;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        input[type="text"], input[type="file"] {
+            font-weight: bold;
+            padding: 8px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            width: 80%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        img{
+            border-radius: 50%;
+        }
+        button{
+            width: 80px;
+            height: 40px;
+            border-radius: 20px;
+            background-image: radial-gradient(red, yellow, green);
+             font-weight: bolder;
+        }
+        .gradient-text {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, red, rgb(96, 74, 35), rgb(126, 126, 72), green, blue, indigo, rgb(85, 199, 125));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="formContainer">
+        <h2>Enter Your Details</h2>
+        <input type="text" id="nameInput" placeholder="Enter your name" required>
+        <br><br>
+        <input type="file" id="imageInput" accept="image/*" required>
+        <br><br>
+        <button onclick="submitForm()">OK</button>
+        <p id="errorMessage" style="color: red; display: none;">Please enter a valid name and upload a photo.</p>
+    </div>
+    
+    <div class="card" id="holiCard">
+        <img id="profilePic" class="profile-img" src="" alt="Profile Picture">
+        <h1 id="title">Happy Holi, <span id="userName"></span>! 🎨</h1>
+        <p class="gradient-text">आपको और आपके परिवार को होली के पावन अवसर पर मेरे और मेरे परिवार की तरफ से होली की हार्दिक शुभकामनायें हैप्पी होली</p>
+
+            <audio src="holisong.mp3" autoplay></audio>
+ 
+        <marquee class="marquee" behavior="scroll" direction="left" scrollamount="5">
+
+            <a href="https://balmikikumar.github.io/portfolio/" style="text-decoration: none;">
+             
+            <span>Presented by :  <img src="balmikiLogo.jpg" alt="Owner image" style="height: 20px; vertical-align: middle;">
+             
+            ☺</span></a></marquee>
+ 
+    </div>
+    
+    <script>
+        function submitForm() {
+            const name = document.getElementById("nameInput").value.trim();
+            const imageFile = document.getElementById("imageInput").files[0];
+            const errorMessage = document.getElementById("errorMessage");
+            
+            if (name === "" || !imageFile) {
+                errorMessage.style.display = "block";
+                return;
+            }
+            errorMessage.style.display = "none";
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById("profilePic").src = event.target.result;
+            };
+            reader.readAsDataURL(imageFile);
+            
+            document.getElementById("userName").innerText = name;
+            document.getElementById("formContainer").style.display = "none";
+            document.getElementById("holiCard").style.display = "flex";
+        }
+    </script>
+</body>
+</html>
